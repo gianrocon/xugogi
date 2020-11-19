@@ -30,7 +30,7 @@ class Transistor():
 
     """
 
-    def __init__(self, chave=0, entrada=0, saída=0):
+    def __init__(self, chave=0, entrada=0):
         self.entrada = entrada
         self.chave = chave
     
