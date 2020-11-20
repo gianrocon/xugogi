@@ -3,9 +3,9 @@ from prettytable import PrettyTable
 class Transistor():
 
     """
-    Classe para criação de transistores.
+        Classe para criação de transistores.
 
-    EXEMPLO (utilizei opcional Prettytable para melhorar output):
+        EXEMPLO (utilizei opcional Prettytable para melhorar output):
 
             tabela = PrettyTable(['Entrada', 'Chave', 'Saída'])
             transistor1 = Transistor()
@@ -27,7 +27,6 @@ class Transistor():
             |    1    |   1   |   1   |
             |    1    |   0   |   0   |
             +---------+-------+-------+
-
     """
 
     def __init__(self, chave=0, entrada=0):
@@ -46,6 +45,3 @@ class Transistor():
     @property
     def saida(self):
         return int(self.entrada and self.chave)
-
-
-
