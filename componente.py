@@ -126,3 +126,55 @@ class Fulladder():
         or_do_carrier.transistorB.chave = ha_new.carrier
         carrier = or_do_carrier.saida 
         return carrier, direita
+
+
+class Halfsubtracter():
+
+    def __init__(self, energia=0):
+        self.energia = energia
+        self.inputA = 0
+        self.inputB = 0
+        self.xorporta = XorPorta()
+        self.andporta = AndPorta()
+    
+    @property
+    def diff(self):
+        self.xorporta.energia = self.energia
+        self.xorporta.transistorA.chave = self.inputA
+        self.xorporta.transistorB.chave = self.inputB
+        return int(self.xorporta.saida)
+
+    @property
+    def bout(self):
+        self.andporta.energia = self.energia
+        self.andporta.transistorA.chave = not(self.inputA)
+        self.andporta.transistorB.chave = self.inputB
+        return int(self.andporta.saida)
+
+
+class Fullsubtracter():
+
+    def __init__(self, energia=0):
+        self.energia = energia
+        self.inputA = 0
+        self.inputB = 0
+        self.borrowin = 0
+
+    @property
+    def saidas(self):
+        hs_new = Halfsubtracter(energia=self.energia)
+        hs_new.inputA = self.inputA
+        hs_new.inputB = self.inputB
+        bout1 = hs_new.bout 
+        d1 = hs_new.diff
+        hs_prev = Halfsubtracter(energia=self.energia)
+        hs_prev.inputA = d1
+        hs_prev.inputB = self.borrowin
+        bout2 = hs_prev.bout
+        difference = hs_prev.diff
+        or_do_borrowout = OrPorta(energia=self.energia)
+        or_do_borrowout.transistorA.chave = bout1 
+        or_do_borrowout.transistorB.chave = bout2
+        borrowout = or_do_borrowout.saida
+        return borrowout, difference
+
